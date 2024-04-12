@@ -1,6 +1,6 @@
 FROM node:18.19.1-alpine3.19
 EXPOSE 8080
-RUN addgrop -S roboshop $$ adduser -S roboshop -G roboshop
+RUN addgroup -S roboshop $$ adduser -S roboshop -G roboshop
 WORKDIR /opt/server
 # pass this through k8 env variable
 #ENV MONGO=true

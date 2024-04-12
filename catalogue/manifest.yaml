@@ -32,7 +32,7 @@ spec:
         project: roboshop
         tier: app
     spec:
-      containers:      
+      containers:
       - name: catalogue
         image: ramana11k/catalogue:v1
         imagePullPolicy: Always
