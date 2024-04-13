@@ -1,6 +1,7 @@
 FROM node:18.19.1-alpine3.19
 EXPOSE 8080
-RUN addgrop -S roboshop $$ adduser -S roboshop -G roboshop
+RUN addgrop -S roboshop 
+RUN adduser -S roboshop -G roboshop
 WORKDIR /opt/server
 RUN chown roboshop:roboshop /opt/server
 USER roboshop
