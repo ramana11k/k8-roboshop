@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: roboshop
+  labels:
+    app: web
+    project: roboshop
+    tier: web    
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      project: roboshop
+      tier: web    
+  template:
+    metadata:
+      labels:
+        app: web
+        project: roboshop
+        tier: web    
+    spec:
+      containers:
+      - name: web
+        image: ramana11k/web:v1
+        imagePullPolicy: Always
+        # volumeMounts:
+        # - name: nginx-config
+        #   mountPath: /etc/nginx/nginx.conf
+        #   subPath: nginx.conf
+        #   readOnly: true
+          
+      # volumes:
+      # - name: nginx-config
+      #   configMap:
+      #     name: web
+      #     items:
+      #       - key: nginx.config
+      #         path: nginx.config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: roboshop
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+    project: roboshop
+    tier: web
+  ports:
+  - protocol: TCP
+    port: 80 # service port
+    targetPort: 80 # container port
