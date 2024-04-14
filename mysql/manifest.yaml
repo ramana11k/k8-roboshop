@@ -4,15 +4,22 @@ kind:  ConfigMap
 metadata:
   name: mysql
   namespace: roboshop
-data:
-  MYSQL_ROOT_PASSWORD: "Roboshop@1"
-  MYSQL_DATABASE: "cities"
-  MYSQL_USER: "shipping"  
-  MYSQL_PASSWORD: "Roboshop@1"  
+data:  
+  MYSQL_DATABASE: "cities"  
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql
+type: Opaque
+data:  
+  MYSQL_ROOT_PASSWORD: "Um9ib3Nob3BAMQ=="
+  MYSQL_USER: "c2hpcHBpbmc="  
+  MYSQL_PASSWORD: "Um9ib3Nob3BAMQ=="  
 
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,6 +48,11 @@ spec:
       - name: mysql
         image: ramana11k/mysql:v1
         imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: mysql
+        - secretRef:
+            name: mysql
 
 ---
 
